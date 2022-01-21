@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+# metadata of deployment file
+metadata:
+  name: nginx-deployment
+  # label this is used to identify the deployment file easily
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  #selector is used when we need to map two thing there deployment is connected to pods so that we can control replicas or other
+  selector:
+    matchLabels:
+      app: nginx-pod
+  #by using this template deployment will create pod any time
+  template:
+  #metadata of pod
+  #here the name of pod will be name of deployment with some characthersat the end
+    metadata:
+      labels:
+        app: nginx-pod
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
